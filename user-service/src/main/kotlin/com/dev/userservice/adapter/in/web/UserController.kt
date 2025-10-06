@@ -1,8 +1,9 @@
-package com.dev.userservice.port.`in`.api
+package com.dev.userservice.adapter.`in`.web
 
 import org.springframework.web.bind.annotation.RestController
 
-@RestController
+@RestController("/api/users")
 class UserController {
+
 
 }

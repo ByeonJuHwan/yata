@@ -3,6 +3,8 @@ plugins {
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
+
+    kotlin("plugin.jpa") version "1.9.22"
 }
 val springCloudVersion by extra("2025.0.0")
 
@@ -29,6 +31,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    // Jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
     // Jwt 토큰
     implementation("io.jsonwebtoken:jjwt-api:0.13.0")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.13.0")
@@ -36,6 +41,9 @@ dependencies {
 
     // Eureka Client
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+
+    // ulid
+    implementation("com.github.f4b6a3:ulid-creator:5.2.3")
 }
 
 kotlin {
