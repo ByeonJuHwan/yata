@@ -4,6 +4,7 @@ import com.dev.hotelmanagementservice.domain.status.HotelStatus
 
 class Hotel (
     val id: HotelId,
+    private val ownerId: OwnerId,
     private var name: HotelName,
     private var description: Description?,
     private var address: Address,
@@ -18,6 +19,14 @@ data class HotelId(
 ) {
     init {
         require(id.isNotBlank()) { throw IllegalArgumentException("호텔 ID 는 빈 값일수 없습니다") }
+    }
+}
+
+data class OwnerId(
+    val ownerId: String,
+) {
+    init {
+        require(ownerId.isNotBlank()) { throw IllegalArgumentException("소유자 ID 는 빈 값일수 없습니다") }
     }
 }
 

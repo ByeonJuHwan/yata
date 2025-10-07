@@ -14,6 +14,9 @@ class HotelEntity (
     @Column(name = "ulid", length = 26)
     val ulid: String,
 
+    @Column(name = "owner_id", nullable = false, length = 26)
+    val ownerId: String,
+
     @Column(nullable = false, length = 200)
     var name: String,
 
