@@ -4,6 +4,8 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/eureka-server" />
     <file type="web" url="file://$PROJECT_DIR$/gateway-service" />
+    <file type="web" url="file://$PROJECT_DIR$/hotel-catalog-service" />
+    <file type="web" url="file://$PROJECT_DIR$/hotel-management-service" />
     <file type="web" url="file://$PROJECT_DIR$/user-service" />
   </component>
   <component name="ProjectRootManager">

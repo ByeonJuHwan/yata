@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="hotel-service.main" target="17" />
+      <module name="hotel-service.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eureka-server" options="-parameters" />
@@ -8,6 +14,14 @@
       <module name="gateway-service" options="-parameters" />
       <module name="gateway-service.main" options="-parameters" />
       <module name="gateway-service.test" options="-parameters" />
+      <module name="hotel-catalog-service" options="-parameters" />
+      <module name="hotel-catalog-service.main" options="-parameters" />
+      <module name="hotel-catalog-service.test" options="-parameters" />
+      <module name="hotel-management-service" options="-parameters" />
+      <module name="hotel-management-service.main" options="-parameters" />
+      <module name="hotel-management-service.test" options="-parameters" />
+      <module name="hotel-service.main" options="-parameters" />
+      <module name="hotel-service.test" options="-parameters" />
       <module name="user-service" options="-parameters" />
       <module name="user-service.main" options="-parameters" />
       <module name="user-service.test" options="-parameters" />

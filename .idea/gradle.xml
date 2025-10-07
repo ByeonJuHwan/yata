@@ -22,6 +22,24 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/hotel-catalog-service" />
+        <option name="gradleJvm" value="temurin-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/hotel-catalog-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/hotel-management-service" />
+        <option name="gradleJvm" value="temurin-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/hotel-management-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/user-service" />
         <option name="gradleJvm" value="temurin-21" />
         <option name="modules">
