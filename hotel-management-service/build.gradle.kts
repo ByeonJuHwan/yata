@@ -36,6 +36,13 @@ dependencies {
 
     // DB
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    runtimeOnly("com.mysql:mysql-connector-j")
+    testImplementation("org.testcontainers:mysql")
+
+    // testContainer
+    testImplementation("org.testcontainers:testcontainers:1.19.0")
+    testImplementation("org.testcontainers:junit-jupiter:1.19.0")
+    testImplementation("org.testcontainers:mysql:1.19.0")
 
     // ulid
     implementation("com.github.f4b6a3:ulid-creator:5.2.3")

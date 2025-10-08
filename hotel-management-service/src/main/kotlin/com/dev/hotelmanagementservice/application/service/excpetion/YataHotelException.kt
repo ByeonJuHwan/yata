@@ -1,12 +1,15 @@
 package com.dev.hotelmanagementservice.application.service.excpetion
 
 class YataHotelException(
-    private val codeInterFace: CodeInterFace,
-    private val additionalMessage: String? = null,
+    val codeInterface: CodeInterFace,
+    additionalMessage: String? = null,
 ) : RuntimeException(
     if (additionalMessage == null) {
-        codeInterFace.message
+        codeInterface.message
     } else {
-        "${codeInterFace.message} $additionalMessage"
+        "${codeInterface.message} $additionalMessage"
     }
-)
+) {
+    val code: Int
+        get() = codeInterface.code
+}

@@ -5,13 +5,13 @@ import com.github.f4b6a3.ulid.UlidCreator
 
 class Hotel (
     val id: HotelId,
-    private val ownerId: OwnerId,
-    private var name: HotelName,
-    private var description: Description?,
-    private var address: Address,
-    private var phoneNumber: PhoneNumber,
-    private var email: Email?,
-    private var status: HotelStatus,
+    val ownerId: OwnerId,
+    var name: HotelName,
+    var description: Description?,
+    var address: Address,
+    var phoneNumber: PhoneNumber,
+    var email: Email?,
+    var status: HotelStatus,
 ) {
     companion object {
         fun register (

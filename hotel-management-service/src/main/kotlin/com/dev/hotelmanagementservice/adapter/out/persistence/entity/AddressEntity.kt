@@ -4,7 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Embeddable
 
 @Embeddable
-data class Address(
+data class AddressEntity(
     @Column(length = 100)
     val country: String,
 
