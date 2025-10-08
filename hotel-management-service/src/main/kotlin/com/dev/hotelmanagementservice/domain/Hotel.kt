@@ -1,6 +1,7 @@
 package com.dev.hotelmanagementservice.domain
 
 import com.dev.hotelmanagementservice.domain.status.HotelStatus
+import com.github.f4b6a3.ulid.UlidCreator
 
 class Hotel (
     val id: HotelId,
@@ -12,6 +13,35 @@ class Hotel (
     private var email: Email?,
     private var status: HotelStatus,
 ) {
+    companion object {
+        fun register (
+            ownerId: String,
+            name: String,
+            description : String?,
+            country: String,
+            city: String,
+            street: String,
+            zipCode: String?,
+            phoneNumber: String,
+            email: String?
+        ) : Hotel {
+            return Hotel(
+                id = HotelId(UlidCreator.getUlid().toString()),
+                ownerId = OwnerId(ownerId),
+                name = HotelName(name),
+                description = description?.let { Description(it) },
+                address = Address(
+                    country = country,
+                    city = city,
+                    street = street,
+                    zipCode = zipCode,
+                ),
+                phoneNumber = PhoneNumber(phoneNumber),
+                email = email?.let { Email(it) },
+                status = HotelStatus.ACTIVE,
+            )
+        }
+    }
 }
 
 data class HotelId(

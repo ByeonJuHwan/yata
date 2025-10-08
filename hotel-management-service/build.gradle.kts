@@ -39,6 +39,11 @@ dependencies {
 
     // ulid
     implementation("com.github.f4b6a3:ulid-creator:5.2.3")
+
+    // mockK
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 dependencyManagement {
