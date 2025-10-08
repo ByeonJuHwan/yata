@@ -2,6 +2,7 @@ package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
 import com.dev.hotelmanagementservice.application.port.`in`.RegisterHotelUseCase
+import com.dev.hotelmanagementservice.application.port.out.EventPublisher
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional
 class HotelWriteService (
     private val hotelRepository: HotelRepository,
     private val userRepository: UserRepository,
+    private val eventPublisher: EventPublisher,
 ) : RegisterHotelUseCase {
 
     @Transactional
