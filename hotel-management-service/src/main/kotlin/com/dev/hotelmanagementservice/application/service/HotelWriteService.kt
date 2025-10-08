@@ -33,5 +33,7 @@ class HotelWriteService (
         )
 
         hotelRepository.saveHotel(hotel)
+
+        // TODO 사용자 서비스의 DB 로 마이그 및 ElasticSearch 로 전송
     }
 }

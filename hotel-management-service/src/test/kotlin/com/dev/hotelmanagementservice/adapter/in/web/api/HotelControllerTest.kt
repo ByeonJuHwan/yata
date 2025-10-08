@@ -4,14 +4,22 @@ import com.dev.hotelmanagementservice.IntegrationTestBase
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
+import com.dev.hotelmanagementservice.domain.Address
+import com.dev.hotelmanagementservice.domain.Hotel
+import com.dev.hotelmanagementservice.domain.HotelId
+import com.dev.hotelmanagementservice.domain.HotelName
+import com.dev.hotelmanagementservice.domain.OwnerId
+import com.dev.hotelmanagementservice.domain.PhoneNumber
 import com.dev.hotelmanagementservice.domain.User
 import com.dev.hotelmanagementservice.domain.UserId
 import com.dev.hotelmanagementservice.domain.UserName
+import com.dev.hotelmanagementservice.domain.status.HotelStatus
 import com.github.f4b6a3.ulid.UlidCreator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 
 class HotelControllerTest : IntegrationTestBase() {
@@ -84,5 +92,53 @@ class HotelControllerTest : IntegrationTestBase() {
 
         // then
         assertThat(hotelRepository.findAll()).size().isEqualTo(1)
+    }
+
+
+    @Test
+    fun `내가 등록한 호텔 목록을 조회한다`() {
+        // given
+        val hotel = Hotel(
+            id = HotelId(UlidCreator.getUlid().toString()),
+            ownerId = OwnerId(userId),
+            name = HotelName("테스트 호텔"),
+            description = null,
+            address = Address(
+                country = "대한민국",
+                city = "대한민국",
+                street = "강남구",
+                zipCode = null,
+            ),
+            phoneNumber = PhoneNumber("01073225858"),
+            email = null,
+            status = HotelStatus.ACTIVE,
+        )
+
+        val user = User(
+            id = UserId(userId),
+            username = UserName("테스트"),
+        )
+
+        userRepository.save(user)
+        hotelRepository.saveHotel(hotel)
+
+        // when
+        mockMvc.get("/api/v1/hotels/my") {
+            header("X-USER-ID", userId)
+        } .andExpect {
+            status { isOk() }
+
+            jsonPath("$.userId") { value(userId) }
+            jsonPath("$.username") { value("테스트") }
+            jsonPath("$.hotelInfos") { isArray() }
+            jsonPath("$.hotelInfos.length()") { value(1) }
+
+            jsonPath("$.hotelInfos[0].hotelId") { value(hotel.id.id) }
+            jsonPath("$.hotelInfos[0].name") { value("테스트 호텔") }
+        }
+
+        // then
+        val savedHotels = hotelRepository.findByOwnerId(userId)
+        assertThat(savedHotels).hasSize(1)
     }
 }

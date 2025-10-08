@@ -21,4 +21,9 @@ class HotelRepositoryAdapter (
             .map { it.toDomain() }
 
     }
+
+    override fun findByOwnerId(userId: String): List<Hotel> {
+        return hotelJpaRepository.findByOwnerId(userId)
+            .map{ it.toDomain()}
+    }
 }
