@@ -1,14 +1,24 @@
 package com.dev.hotelmanagementservice.domain
 
-
 class User (
     val id: UserId,
     val username: UserName,
 ) {
-
+    companion object {
+        fun create(
+            id: String,
+            userName: String,
+        ): User {
+            return User(
+                id = UserId(id),
+                username = UserName(userName),
+            )
+        }
+    }
 }
 
-data class UserId(
+@JvmInline
+value class UserId(
     val id: String,
 ) {
 
@@ -17,7 +27,8 @@ data class UserId(
     }
 }
 
-data class UserName(
+@JvmInline
+value class UserName(
     val username: String,
 ) {
     init {

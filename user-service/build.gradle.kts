@@ -44,6 +44,12 @@ dependencies {
 
     // ulid
     implementation("com.github.f4b6a3:ulid-creator:5.2.3")
+
+    // kafka
+    implementation("org.springframework.kafka:spring-kafka")
+    testImplementation("org.springframework.kafka:spring-kafka-test")
+    testImplementation("org.testcontainers:kafka")
+
 }
 
 kotlin {

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 import org.testcontainers.containers.MySQLContainer
 import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
+import org.testcontainers.kafka.KafkaContainer
 import org.testcontainers.utility.DockerImageName
 
 @SpringBootTest
@@ -34,6 +35,12 @@ open class IntegrationTestBase {
             .withDatabaseName("testdb")
             .withUsername("test")
             .withPassword("test")
+
+        @Container
+        @JvmStatic
+        val kafkaContainer: KafkaContainer = KafkaContainer(
+            DockerImageName.parse("apache/kafka:3.7.0")
+        ).withReuse(true)
 
 
         @DynamicPropertySource
