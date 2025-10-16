@@ -1,7 +1,7 @@
 package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
-import com.dev.hotelmanagementservice.application.port.`in`.RegisterHotelUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.hotel.RegisterHotelUseCase
 import com.dev.hotelmanagementservice.application.port.out.EventPublisher
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository

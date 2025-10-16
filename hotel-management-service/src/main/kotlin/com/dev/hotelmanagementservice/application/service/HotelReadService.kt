@@ -2,7 +2,7 @@ package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.response.SearchMyHotelDetail
 import com.dev.hotelmanagementservice.adapter.`in`.web.response.SearchMyHotelResponse
-import com.dev.hotelmanagementservice.application.port.`in`.SearchMyHotelsUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.hotel.SearchMyHotelsUseCase
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode

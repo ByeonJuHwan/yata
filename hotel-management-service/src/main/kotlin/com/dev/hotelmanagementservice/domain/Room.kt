@@ -1,7 +1,9 @@
 package com.dev.hotelmanagementservice.domain
 
+import com.github.f4b6a3.ulid.UlidCreator
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.LocalDateTime
 
 class Room private constructor(
     val id: RoomId,
@@ -12,8 +14,8 @@ class Room private constructor(
     basePrice: Money,
     bedType: BedType,
     status: RoomStatus,
-    val createdAt: Instant,
-    updatedAt: Instant,
+    val createdAt: LocalDateTime?,
+    updatedAt: LocalDateTime?,
 ) {
     var roomName: RoomName = roomName
         private set
@@ -33,8 +35,69 @@ class Room private constructor(
     var status: RoomStatus = status
         private set
 
-    var updatedAt: Instant = updatedAt
+    var updatedAt: LocalDateTime? = updatedAt
         private set
+
+    companion object {
+        fun create(
+            hotelId: HotelId,
+            roomName: String,
+            roomType: String,
+            capacity: Int,
+            basePrice: BigDecimal,
+            currency: String = "KRW",
+            bedType: String,
+        ): Room {
+            // 도메인 규칙 검증
+            require(roomName.isNotBlank()) { "Room name cannot be blank" }
+            require(roomName.length <= 50) { "Room name must be 50 characters or less" }
+            require(basePrice > BigDecimal.ZERO) { "Base price must be positive" }
+            require(capacity > 0) { "Capacity must be positive" }
+            require(capacity <= 10) { "Capacity cannot exceed 10" }
+
+            return Room(
+                id = RoomId(UlidCreator.getUlid().toString()),
+                hotelId = hotelId,
+                roomName = RoomName(roomName),
+                roomType = RoomType.valueOf(roomType),
+                capacity = Capacity(capacity),
+                basePrice = Money(basePrice, currency),
+                bedType = BedType.valueOf(bedType),
+                status = RoomStatus.ACTIVE,
+                createdAt = LocalDateTime.now(),
+                updatedAt = LocalDateTime.now()
+            )
+        }
+
+
+        // DB에서 복원할 때 사용 (Repository에서 호출)
+        fun reconstitute(
+            id: RoomId,
+            hotelId: HotelId,
+            roomName: RoomName,
+            roomType: RoomType,
+            capacity: Capacity,
+            basePrice: Money,
+            bedType: BedType,
+            status: RoomStatus,
+            createdAt: LocalDateTime?,
+            updatedAt: LocalDateTime?,
+        ): Room {
+            return Room(
+                id = id,
+                hotelId = hotelId,
+                roomName = roomName,
+                roomType = roomType,
+                capacity = capacity,
+                basePrice = basePrice,
+                bedType = bedType,
+                status = status,
+                createdAt = createdAt,
+                updatedAt = updatedAt
+            )
+        }
+    }
+
 }
 
 data class Money(

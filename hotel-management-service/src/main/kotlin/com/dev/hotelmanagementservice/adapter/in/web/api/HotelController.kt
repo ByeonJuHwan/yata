@@ -2,8 +2,8 @@ package com.dev.hotelmanagementservice.adapter.`in`.web.api
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
 import com.dev.hotelmanagementservice.adapter.`in`.web.response.SearchMyHotelResponse
-import com.dev.hotelmanagementservice.application.port.`in`.RegisterHotelUseCase
-import com.dev.hotelmanagementservice.application.port.`in`.SearchMyHotelsUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.hotel.RegisterHotelUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.hotel.SearchMyHotelsUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping

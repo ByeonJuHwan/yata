@@ -34,6 +34,7 @@ class UserServiceTest {
         val message = UserCreateMessage (
             userId = userId,
             username = "test",
+            eventId = userId
         )
 
         every { userRepository.save(any()) } just Runs

@@ -1,8 +1,15 @@
 package com.dev.hotelmanagementservice.adapter.out.persistence.entity
 
 import com.dev.hotelmanagementservice.domain.BedType
+import com.dev.hotelmanagementservice.domain.Capacity
+import com.dev.hotelmanagementservice.domain.HotelId
+import com.dev.hotelmanagementservice.domain.Money
+import com.dev.hotelmanagementservice.domain.Room
+import com.dev.hotelmanagementservice.domain.RoomId
+import com.dev.hotelmanagementservice.domain.RoomName
 import com.dev.hotelmanagementservice.domain.RoomStatus
 import com.dev.hotelmanagementservice.domain.RoomType
+import com.github.f4b6a3.ulid.UlidCreator
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -43,5 +50,35 @@ class RoomEntity(
     val status: RoomStatus,
 
 ) : BaseTimeEntity() {
+
+    fun toDomain(): Room {
+        return Room.reconstitute(
+            id = RoomId(this.id),
+            hotelId = HotelId(this.hotelId),
+            roomName = RoomName(this.roomName),
+            roomType = this.roomType,
+            capacity = Capacity(this.capacity),
+            basePrice = Money(this.basePrice),
+            bedType = this.bedType,
+            status = this.status,
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt
+        )
+    }
+
+    companion object {
+        fun from(room: Room): RoomEntity {
+            return RoomEntity(
+                id = UlidCreator.getUlid().toString(),
+                hotelId = room.hotelId.id,
+                roomName = room.roomName.value,
+                roomType = room.roomType,
+                capacity = room.capacity.value,
+                basePrice = room.basePrice.amount,
+                bedType = room.bedType,
+                status = room.status,
+            )
+        }
+    }
 
 }
