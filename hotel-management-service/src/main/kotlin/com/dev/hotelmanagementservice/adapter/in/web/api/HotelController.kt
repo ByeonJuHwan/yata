@@ -32,9 +32,9 @@ class HotelController (
     fun registerHotel(
         @RequestHeader("X-USER-ID") userId: String,
         @RequestBody request: RegisterHotelRequest,
-   ): ResponseEntity<Void> {
-       registerHotelUseCase.registerHotel(userId, request)
-       return ResponseEntity.status(HttpStatus.CREATED).build()
-   }
+    ): ResponseEntity<Void> {
+        registerHotelUseCase.registerHotel(userId, request)
+        return ResponseEntity.status(HttpStatus.CREATED).build()
+    }
 
 }
