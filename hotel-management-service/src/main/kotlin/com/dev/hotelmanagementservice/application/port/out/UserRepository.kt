@@ -6,5 +6,7 @@ import java.util.Optional
 interface UserRepository {
     fun findById(userId: String) : Optional<User>
 
+    fun findByUserName(userName: String) : Optional<User>
+
     fun save(user: User)
 }

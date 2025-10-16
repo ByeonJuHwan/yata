@@ -49,6 +49,10 @@ open class IntegrationTestBase {
             registry.add("spring.datasource.url", mysqlContainer::getJdbcUrl)
             registry.add("spring.datasource.username", mysqlContainer::getUsername)
             registry.add("spring.datasource.password", mysqlContainer::getPassword)
+
+            registry.add("spring.kafka.bootstrap-servers", kafkaContainer::getBootstrapServers)
+            registry.add("spring.kafka.consumer.bootstrap-servers", kafkaContainer::getBootstrapServers)
+            registry.add("spring.kafka.producer.bootstrap-servers", kafkaContainer::getBootstrapServers)
         }
     }
 

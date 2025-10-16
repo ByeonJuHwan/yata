@@ -17,6 +17,11 @@ class UserRepositoryAdapter (
             .map { it.toDomain() }
     }
 
+    override fun findByUserName(userName: String): Optional<User> {
+        return userJpaRepository.findByUsername(userName)
+            .map { it.toDomain() }
+    }
+
     override fun save(user: User) {
         val userEntity = UserEntity.from(user)
         userJpaRepository.save(userEntity)
