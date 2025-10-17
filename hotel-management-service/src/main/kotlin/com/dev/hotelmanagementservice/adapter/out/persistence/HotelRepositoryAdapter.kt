@@ -5,6 +5,7 @@ import com.dev.hotelmanagementservice.adapter.out.persistence.jpa.HotelJpaReposi
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.domain.Hotel
 import org.springframework.stereotype.Component
+import java.util.Optional
 
 @Component
 class HotelRepositoryAdapter (
@@ -25,5 +26,10 @@ class HotelRepositoryAdapter (
     override fun findByOwnerId(userId: String): List<Hotel> {
         return hotelJpaRepository.findByOwnerId(userId)
             .map{ it.toDomain()}
+    }
+
+    override fun findById(hotelId: String) : Optional<Hotel> {
+        return hotelJpaRepository.findById(hotelId)
+            .map { it.toDomain() }
     }
 }

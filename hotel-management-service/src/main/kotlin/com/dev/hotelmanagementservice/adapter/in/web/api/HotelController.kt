@@ -1,12 +1,15 @@
 package com.dev.hotelmanagementservice.adapter.`in`.web.api
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
+import com.dev.hotelmanagementservice.adapter.`in`.web.response.SearchHotelDetailResponse
 import com.dev.hotelmanagementservice.adapter.`in`.web.response.SearchMyHotelResponse
 import com.dev.hotelmanagementservice.application.port.`in`.hotel.RegisterHotelUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.hotel.SearchHotelDetailUseCase
 import com.dev.hotelmanagementservice.application.port.`in`.hotel.SearchMyHotelsUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 class HotelController (
     private val registerHotelUseCase: RegisterHotelUseCase,
     private val searchMyHotelsUseCase: SearchMyHotelsUseCase,
+    private val searchHotelDetailUseCase: SearchHotelDetailUseCase,
 ) {
 
     @GetMapping("/my")
@@ -37,4 +41,13 @@ class HotelController (
         return ResponseEntity.status(HttpStatus.CREATED).build()
     }
 
+    // 고객 사용
+    // 대량 데이터의 상세 조회시 문제점
+    @GetMapping("/{hotelId}")
+    fun getHotels(
+        @PathVariable hotelId: String
+    ): ResponseEntity<SearchHotelDetailResponse> {
+        val response: SearchHotelDetailResponse = searchHotelDetailUseCase.searchHotelDetail(hotelId)
+        return ResponseEntity.ok().body(response)
+    }
 }

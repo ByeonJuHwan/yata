@@ -11,6 +11,11 @@ class RoomRepositoryAdapter (
     private val roomJpaRepository: RoomJpaRepository,
 ) : RoomRepository {
 
+    override fun findByHotelId(hotelId: String): List<Room> {
+        return roomJpaRepository.findByHotelId(hotelId)
+            .map { it.toDomain() }
+    }
+
     override fun save(room: Room) {
         val roomEntity = RoomEntity.from(room)
         roomJpaRepository.save(roomEntity)
@@ -20,6 +25,4 @@ class RoomRepositoryAdapter (
         return roomJpaRepository.findAll()
             .map { it.toDomain() }
     }
-
-
 }

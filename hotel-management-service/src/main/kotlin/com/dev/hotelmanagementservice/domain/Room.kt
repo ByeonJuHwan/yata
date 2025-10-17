@@ -11,6 +11,7 @@ class Room private constructor(
     roomName: RoomName,
     roomType: RoomType,
     capacity: Capacity,
+    stock: Stock,
     basePrice: Money,
     bedType: BedType,
     status: RoomStatus,
@@ -24,6 +25,9 @@ class Room private constructor(
         private set
 
     var capacity: Capacity = capacity
+        private set
+
+    var stock: Stock = stock
         private set
 
     var basePrice: Money = basePrice
@@ -44,23 +48,18 @@ class Room private constructor(
             roomName: String,
             roomType: String,
             capacity: Int,
+            stock: Int,
             basePrice: BigDecimal,
             currency: String = "KRW",
             bedType: String,
         ): Room {
-            // 도메인 규칙 검증
-            require(roomName.isNotBlank()) { "Room name cannot be blank" }
-            require(roomName.length <= 50) { "Room name must be 50 characters or less" }
-            require(basePrice > BigDecimal.ZERO) { "Base price must be positive" }
-            require(capacity > 0) { "Capacity must be positive" }
-            require(capacity <= 10) { "Capacity cannot exceed 10" }
-
             return Room(
                 id = RoomId(UlidCreator.getUlid().toString()),
                 hotelId = hotelId,
                 roomName = RoomName(roomName),
                 roomType = RoomType.valueOf(roomType),
                 capacity = Capacity(capacity),
+                stock = Stock(stock),
                 basePrice = Money(basePrice, currency),
                 bedType = BedType.valueOf(bedType),
                 status = RoomStatus.ACTIVE,
@@ -77,6 +76,7 @@ class Room private constructor(
             roomName: RoomName,
             roomType: RoomType,
             capacity: Capacity,
+            stock: Int,
             basePrice: Money,
             bedType: BedType,
             status: RoomStatus,
@@ -89,6 +89,7 @@ class Room private constructor(
                 roomName = roomName,
                 roomType = roomType,
                 capacity = capacity,
+                stock = Stock(stock),
                 basePrice = basePrice,
                 bedType = bedType,
                 status = status,
@@ -111,13 +112,24 @@ data class Money(
 }
 
 @JvmInline
-value class RoomId(val value: String)
+value class RoomId(val value: String) {
+    init {
+        require(value.isNotBlank()) { "방 ID 는 빈값일수 없습니다" }
+    }
+}
 
 @JvmInline
 value class RoomName(val value: String) {
     init {
         require(value.isNotBlank()) { "방 이름은 빈값일수 없습니다" }
         require(value.length <= 20) { "방 이름은 20자 이내로 입력해야 합니다." }
+    }
+}
+
+@JvmInline
+value class Stock(val stock: Int) {
+    init {
+        require(stock > 0) { "방개수는 1개 이상이어야 합니다." }
     }
 }
 

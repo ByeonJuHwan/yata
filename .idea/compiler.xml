@@ -17,9 +17,9 @@
       <module name="hotel-catalog-service" options="-parameters" />
       <module name="hotel-catalog-service.main" options="-parameters" />
       <module name="hotel-catalog-service.test" options="-parameters" />
-      <module name="hotel-management-service" options="-parameters" />
-      <module name="hotel-management-service.main" options="-parameters" />
-      <module name="hotel-management-service.test" options="-parameters" />
+      <module name="hotel-management-service" options="-parameters -proc:none" />
+      <module name="hotel-management-service.main" options="-parameters -proc:none" />
+      <module name="hotel-management-service.test" options="-parameters -proc:none" />
       <module name="hotel-service.main" options="-parameters" />
       <module name="hotel-service.test" options="-parameters" />
       <module name="user-service" options="-parameters" />

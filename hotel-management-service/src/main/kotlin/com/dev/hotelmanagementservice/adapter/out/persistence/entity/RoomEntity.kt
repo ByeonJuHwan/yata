@@ -38,6 +38,9 @@ class RoomEntity(
     @Column(name = "capacity", nullable = false)
     val capacity: Int, // 수용 가능 인원
 
+    @Column(name = "stock", nullable = false)
+    val stock: Int,
+
     @Column(name = "base_price", nullable = false, precision = 19, scale = 2)
     val basePrice: BigDecimal,
 
@@ -58,6 +61,7 @@ class RoomEntity(
             roomName = RoomName(this.roomName),
             roomType = this.roomType,
             capacity = Capacity(this.capacity),
+            stock = this.stock,
             basePrice = Money(this.basePrice),
             bedType = this.bedType,
             status = this.status,
@@ -74,6 +78,7 @@ class RoomEntity(
                 roomName = room.roomName.value,
                 roomType = room.roomType,
                 capacity = room.capacity.value,
+                stock = room.stock.stock,
                 basePrice = room.basePrice.amount,
                 bedType = room.bedType,
                 status = room.status,
