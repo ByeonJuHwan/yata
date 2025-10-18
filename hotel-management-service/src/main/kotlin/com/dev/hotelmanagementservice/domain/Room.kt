@@ -2,7 +2,6 @@ package com.dev.hotelmanagementservice.domain
 
 import com.github.f4b6a3.ulid.UlidCreator
 import java.math.BigDecimal
-import java.time.Instant
 import java.time.LocalDateTime
 
 class Room private constructor(
@@ -18,6 +17,22 @@ class Room private constructor(
     val createdAt: LocalDateTime?,
     updatedAt: LocalDateTime?,
 ) {
+    fun deductStock(room: Room) : Room {
+        return Room(
+            id = RoomId(room.id.value),
+            hotelId = HotelId(room.hotelId.id),
+            roomName = RoomName(room.roomName.value),
+            roomType = room.roomType,
+            capacity = Capacity(room.capacity.value),
+            stock = Stock(room.stock.stock - 1),
+            basePrice = Money(room.basePrice.amount),
+            bedType = room.bedType,
+            status = room.status,
+            createdAt = room.createdAt,
+            updatedAt = LocalDateTime.now()
+        )
+    }
+
     var roomName: RoomName = roomName
         private set
 
@@ -129,8 +144,10 @@ value class RoomName(val value: String) {
 @JvmInline
 value class Stock(val stock: Int) {
     init {
-        require(stock > 0) { "방개수는 1개 이상이어야 합니다." }
+        require(stock >= 0) { "방개수는 0개 이상이어야 합니다." }
     }
+
+    fun isAvailable(): Boolean = stock > 0
 }
 
 @JvmInline

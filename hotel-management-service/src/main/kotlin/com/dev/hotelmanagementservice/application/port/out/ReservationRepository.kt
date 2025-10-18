@@ -4,4 +4,5 @@ import com.dev.hotelmanagementservice.domain.Reservation
 
 interface ReservationRepository {
     fun save(reservation: Reservation)
+    fun findAll(): List<Reservation>
 }

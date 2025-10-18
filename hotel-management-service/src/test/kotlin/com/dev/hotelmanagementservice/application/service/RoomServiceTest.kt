@@ -3,6 +3,7 @@ package com.dev.hotelmanagementservice.application.service
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterRoomRequest
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
 import com.dev.hotelmanagementservice.domain.BedType
+import com.dev.hotelmanagementservice.domain.Room
 import com.dev.hotelmanagementservice.domain.RoomType
 import com.github.f4b6a3.ulid.UlidCreator
 import io.mockk.Runs
@@ -11,9 +12,11 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import io.mockk.just
+import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.ArgumentMatchers.any
 import java.math.BigDecimal
 import kotlin.test.Test
 
@@ -40,7 +43,9 @@ class RoomServiceTest {
             bedType = BedType.KING.toString(),
         )
 
-        every { roomRepository.save(any()) } just Runs
+        every { roomRepository.save(any()) } answers {
+            firstArg()
+        }
 
         // when
         roomService.registerRoom(request)

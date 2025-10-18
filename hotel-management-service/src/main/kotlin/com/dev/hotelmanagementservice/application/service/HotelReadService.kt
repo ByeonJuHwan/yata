@@ -40,7 +40,7 @@ class HotelReadService (
 
     // 고객용
     override fun searchHotelDetail(hotelId: String): SearchHotelDetailResponse {
-        val hotel = hotelRepository.findById(hotelId).orElseThrow { throw YataHotelException(ErrorCode.HOTEL_NOT_COUND) }
+        val hotel = hotelRepository.findById(hotelId).orElseThrow { throw YataHotelException(ErrorCode.HOTEL_NOT_FOUND) }
         val rooms: List<Room> = roomRepository.findByHotelId(hotelId)
 
         val roomDto: List<SearchRoomDetailResponse> = rooms

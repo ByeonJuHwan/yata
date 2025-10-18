@@ -21,6 +21,20 @@ class Reservation private constructor(
                 hotelId = HotelId(hotelId),
             )
         }
+
+        fun reconstitute(
+            id: ReservationId,
+            userId: UserId,
+            roomId: RoomId,
+            hotelId: HotelId,
+        ): Reservation {
+            return Reservation(
+                id = id,
+                userId = userId,
+                roomId = roomId,
+                hotelId = hotelId,
+            )
+        }
     }
 
 }

@@ -15,4 +15,9 @@ class ReservationRepositoryAdapter (
         val reservationEntity = ReservationEntity.from(reservation)
         reservationJpaRepository.save(reservationEntity)
     }
+
+    override fun findAll(): List<Reservation> {
+        return reservationJpaRepository.findAll()
+            .map { it.toDomain() }
+    }
 }
