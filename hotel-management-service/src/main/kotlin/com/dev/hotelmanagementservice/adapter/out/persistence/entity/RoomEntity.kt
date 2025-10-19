@@ -9,7 +9,6 @@ import com.dev.hotelmanagementservice.domain.RoomId
 import com.dev.hotelmanagementservice.domain.RoomName
 import com.dev.hotelmanagementservice.domain.RoomStatus
 import com.dev.hotelmanagementservice.domain.RoomType
-import com.github.f4b6a3.ulid.UlidCreator
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -38,6 +37,9 @@ class RoomEntity(
     @Column(name = "capacity", nullable = false)
     val capacity: Int, // 수용 가능 인원
 
+    @Column(name = "stock", nullable = false)
+    val stock: Int,
+
     @Column(name = "base_price", nullable = false, precision = 19, scale = 2)
     val basePrice: BigDecimal,
 
@@ -58,6 +60,7 @@ class RoomEntity(
             roomName = RoomName(this.roomName),
             roomType = this.roomType,
             capacity = Capacity(this.capacity),
+            stock = this.stock,
             basePrice = Money(this.basePrice),
             bedType = this.bedType,
             status = this.status,
@@ -69,11 +72,12 @@ class RoomEntity(
     companion object {
         fun from(room: Room): RoomEntity {
             return RoomEntity(
-                id = UlidCreator.getUlid().toString(),
+                id = room.id.value,
                 hotelId = room.hotelId.id,
                 roomName = room.roomName.value,
                 roomType = room.roomType,
                 capacity = room.capacity.value,
+                stock = room.stock.stock,
                 basePrice = room.basePrice.amount,
                 bedType = room.bedType,
                 status = room.status,

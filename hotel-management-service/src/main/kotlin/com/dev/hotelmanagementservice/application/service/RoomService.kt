@@ -20,11 +20,11 @@ class RoomService (
             roomName = request.roomName,
             roomType = request.roomType,
             capacity = request.capacity,
+            stock = request.stock,
             basePrice = request.basePrice,
             bedType = request.bedType,
         )
 
         roomRepository.save(room)
-
     }
 }

@@ -26,6 +26,7 @@ class RoomControllerTest : IntegrationTestBase() {
             roomName = "test room name",
             roomType = RoomType.STANDARD.toString(),
             capacity = 1,
+            stock = 10,
             basePrice = BigDecimal.valueOf(100),
             bedType = BedType.KING.toString(),
         )

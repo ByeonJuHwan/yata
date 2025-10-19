@@ -1,6 +1,7 @@
 package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequest
+import com.dev.hotelmanagementservice.application.port.out.EventPublisher
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.domain.User
@@ -29,6 +30,9 @@ class HotelWriteServiceTest {
 
     @MockK
     private lateinit var userRepository: UserRepository
+
+    @MockK
+    private lateinit var eventPublisher: EventPublisher
 
     private val userId: String = UlidCreator.getUlid().toString()
 

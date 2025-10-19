@@ -1,9 +1,20 @@
 package com.dev.hotelmanagementservice.application.port.out
 
 import com.dev.hotelmanagementservice.domain.Room
+import java.util.Optional
 
 interface RoomRepository {
-    fun save(room: Room)
+
+    fun findById(roomId: String): Optional<Room>
+
+    fun findByHotelId(hotelId: String): List<Room>
+
+    fun save(room: Room): Room
 
     fun findAll(): List<Room>
+
+    fun getRoomStockWithLock(roomId: String): Room?
+
+    fun deductStock(room: Room)
+    fun deleteAll()
 }

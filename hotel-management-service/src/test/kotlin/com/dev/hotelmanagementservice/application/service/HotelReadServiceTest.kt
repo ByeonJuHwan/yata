@@ -1,6 +1,7 @@
 package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
+import com.dev.hotelmanagementservice.application.port.out.RoomRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.domain.Hotel
 import com.dev.hotelmanagementservice.domain.HotelId
@@ -29,6 +30,10 @@ class HotelReadServiceTest {
     @MockK
     private lateinit var userRepository: UserRepository
 
+    @MockK
+    private lateinit var roomRepository: RoomRepository
+
+
     @InjectMockKs
     private lateinit var hotelReadService: HotelReadService
 
@@ -43,7 +48,7 @@ class HotelReadServiceTest {
         }
 
         every { userRepository.findById(userId) } returns Optional.of(user)
-        every { hotelRepository.findByOwnerId(userId) } returns emptyList()  // ✅ 빈 리스트
+        every { hotelRepository.findByOwnerId(userId) } returns emptyList()
 
         // when
         val result = hotelReadService.getMyHotels(userId)
