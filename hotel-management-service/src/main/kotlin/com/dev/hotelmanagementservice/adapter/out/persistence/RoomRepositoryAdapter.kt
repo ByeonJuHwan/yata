@@ -40,4 +40,8 @@ class RoomRepositoryAdapter (
     override fun deductStock(room: Room) {
         return roomJpaRepository.updateStock(room.id.value, room.stock.stock)
     }
+
+    override fun deleteAll() {
+        roomJpaRepository.deleteAll()
+    }
 }

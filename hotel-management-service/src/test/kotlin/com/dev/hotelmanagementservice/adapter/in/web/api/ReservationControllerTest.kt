@@ -4,13 +4,13 @@ import com.dev.hotelmanagementservice.IntegrationTestBase
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.CreateReservationRequest
 import com.dev.hotelmanagementservice.application.port.out.ReservationRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
-import com.dev.hotelmanagementservice.application.service.ReservationService
 import com.dev.hotelmanagementservice.domain.BedType
 import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.Room
 import com.dev.hotelmanagementservice.domain.RoomType
 import com.github.f4b6a3.ulid.UlidCreator
 import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.AfterEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -29,12 +29,15 @@ class ReservationControllerTest : IntegrationTestBase() {
     @Autowired
     private lateinit var reservationRepository: ReservationRepository
 
-    @Autowired
-    private lateinit var reservationService: ReservationService
-
 
     private val userId = UlidCreator.getUlid().toString()
     private val hotelId = "test-hotel-id"
+
+    @AfterEach
+    fun tearDown() {
+        roomRepository.deleteAll()
+        reservationRepository.deleteAll()
+    }
 
     @Test
     fun `호텔 예약 성공 테스트`() {
@@ -99,8 +102,12 @@ class ReservationControllerTest : IntegrationTestBase() {
         repeat(threadCount) { index ->
             executorService.submit {
                 try {
-                    println("$index : roomId : ${request.roomId}")
-                    reservationService.createReservation(userId, request)
+                    mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/v1/reservation")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(toJson(request))
+                            .header("X-USER-ID", userId)
+                    )
                 } catch (e: Exception) {
                     println("예약 실패 $index, ${e.message}")
                 } finally {
@@ -149,14 +156,24 @@ class ReservationControllerTest : IntegrationTestBase() {
         CompletableFuture.allOf(
             CompletableFuture.runAsync {
                 try {
-                    reservationService.createReservation(userId, request1)
+                    mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/v1/reservation")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(toJson(request1))
+                            .header("X-USER-ID", userId)
+                    )
                 } catch (e: Exception) {
                     print(e.message)
                 }
             },
             CompletableFuture.runAsync {
                 try {
-                    reservationService.createReservation(userId, request2)
+                    mockMvc.perform(
+                        MockMvcRequestBuilders.post("/api/v1/reservation")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(toJson(request2))
+                            .header("X-USER-ID", userId)
+                    )
                 } catch (e: Exception) {
                     println(e.message)
                 }

@@ -4,7 +4,6 @@ import com.dev.hotelmanagementservice.IntegrationTestBase
 import com.dev.hotelmanagementservice.adapter.`in`.consumer.message.UserCreateMessage
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.github.f4b6a3.ulid.UlidCreator
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.awaitility.Awaitility.await
 import org.springframework.beans.factory.annotation.Autowired

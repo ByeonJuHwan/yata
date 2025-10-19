@@ -21,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 class HotelControllerTest : IntegrationTestBase() {
 
     @Autowired

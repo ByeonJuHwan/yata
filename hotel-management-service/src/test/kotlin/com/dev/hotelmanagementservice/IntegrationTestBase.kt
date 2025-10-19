@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
@@ -18,7 +19,9 @@ import org.testcontainers.utility.DockerImageName
 @AutoConfigureMockMvc
 @Testcontainers
 @ActiveProfiles("test")
-open class IntegrationTestBase {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+abstract class IntegrationTestBase {
+
 
     @Autowired
     protected lateinit var mockMvc: MockMvc
@@ -33,6 +36,7 @@ open class IntegrationTestBase {
             .withDatabaseName("testdb")
             .withUsername("test")
             .withPassword("test")
+            .withReuse(true)
 
         @Container
         @JvmStatic

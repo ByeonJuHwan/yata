@@ -20,4 +20,8 @@ class ReservationRepositoryAdapter (
         return reservationJpaRepository.findAll()
             .map { it.toDomain() }
     }
+
+    override fun deleteAll() {
+        reservationJpaRepository.deleteAll()
+    }
 }
