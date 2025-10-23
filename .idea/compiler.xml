@@ -22,6 +22,9 @@
       <module name="hotel-management-service.test" options="-parameters -proc:none" />
       <module name="hotel-service.main" options="-parameters" />
       <module name="hotel-service.test" options="-parameters" />
+      <module name="payment-service" options="-parameters" />
+      <module name="payment-service.main" options="-parameters" />
+      <module name="payment-service.test" options="-parameters" />
       <module name="reservation-service" options="-parameters" />
       <module name="reservation-service.main" options="-parameters" />
       <module name="reservation-service.test" options="-parameters" />

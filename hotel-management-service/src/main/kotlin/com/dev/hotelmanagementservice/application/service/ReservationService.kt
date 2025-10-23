@@ -19,6 +19,8 @@ class ReservationService (
 
     @Transactional
     override fun createReservation(userId: String, request: CreateReservationRequest) {
+        // 결제
+
         // 현재 재고가 남아있는지 확인 -> PESSIMISTIC_WRITE
         val room: Room = roomRepository.getRoomStockWithLock(request.roomId) ?: throw YataHotelException(ErrorCode.ROOM_NOT_FOUND)
 
