@@ -6,7 +6,7 @@ data class RegisterHotelRequest(
     val country: String,
     val city: String,
     val street: String,
-    val zipCode: String?,
+    val zipCode: String,
     val phoneNumber: String,
-    val email: String?,
+    val email: String,
 )

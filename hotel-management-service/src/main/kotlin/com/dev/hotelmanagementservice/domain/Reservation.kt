@@ -1,5 +1,7 @@
 package com.dev.hotelmanagementservice.domain
 
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.RoomId
 import com.github.f4b6a3.ulid.UlidCreator
 
 class Reservation private constructor(

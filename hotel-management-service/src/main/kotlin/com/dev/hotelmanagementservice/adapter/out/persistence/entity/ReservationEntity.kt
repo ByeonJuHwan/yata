@@ -1,10 +1,10 @@
 package com.dev.hotelmanagementservice.adapter.out.persistence.entity
 
-import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.Reservation
 import com.dev.hotelmanagementservice.domain.ReservationId
-import com.dev.hotelmanagementservice.domain.RoomId
 import com.dev.hotelmanagementservice.domain.UserId
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.RoomId
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -41,8 +41,8 @@ class ReservationEntity (
             return ReservationEntity (
                 ulid = reservation.id.id,
                 userId = reservation.userId.id,
-                roomId = reservation.roomId.value,
-                hotelId = reservation.hotelId.id,
+                roomId = reservation.roomId.roomId,
+                hotelId = reservation.hotelId.hotelId,
             )
         }
     }

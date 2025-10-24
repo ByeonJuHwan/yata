@@ -40,6 +40,12 @@ dependencies {
     // ulid
     implementation("com.github.f4b6a3:ulid-creator:5.2.3")
 
+    // Circuit Breaker
+    implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
+
+    // Spring Cloud OpenFeign
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
     // mockK
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.mockk:mockk:1.13.8")

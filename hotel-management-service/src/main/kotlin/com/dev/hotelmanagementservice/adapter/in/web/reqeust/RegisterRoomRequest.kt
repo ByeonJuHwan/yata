@@ -8,7 +8,7 @@ data class RegisterRoomRequest(
     val roomName: String,
     val roomType: String,
     val capacity: Int,
-    val stock: Int,
+    val totalRoom: Int,
     val basePrice: BigDecimal,
     val bedType: String,
 )

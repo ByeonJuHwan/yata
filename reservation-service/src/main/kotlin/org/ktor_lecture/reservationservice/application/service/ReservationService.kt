@@ -11,12 +11,8 @@ class ReservationService (
 ) : CreateReservationUseCase {
 
     override fun createReservation(userId: String, request: CreateReservationRequest) {
-        // 결제 먼저 진행 -> 결제 서비스에 요청
-
-        // 재고 감소 진행
-
-        // 예약 생성 -> 트랜잭션으로 만약 예약 실행이 안되면 이 범위만 트랜잭션 추가
-
-        // 여기서는 예약 완료 이벤트 발행 -> 알림
+        // 1. 재고 확인 -> 재고가 있으면 -> 1개줄인다 -> 잠금상태
+        // 2. 예약생성 -> 10분마다 체크 -> 결제했나안했나
+        // 3. 결제하면 확정처리 / 10분 지나면 예약 삭제해버리고 재고 원복
     }
 }

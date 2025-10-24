@@ -19,11 +19,4 @@ interface RoomJpaRepository : JpaRepository<RoomEntity, String> {
     @Query("SELECT r FROM RoomEntity r WHERE r.id = :roomId")
     fun findByIdWithLock(@Param("roomId") roomId: String): RoomEntity?
 
-    @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query("UPDATE RoomEntity r SET r.stock = :stock WHERE r.id = :roomId")
-    fun updateStock(
-        @Param("roomId") roomId: String,
-        @Param("stock") stock: Int
-    )
-
 }

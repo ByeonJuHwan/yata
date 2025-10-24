@@ -31,8 +31,8 @@ class HotelReadService (
             hotels
                 .map {
                     SearchMyHotelDetail(
-                        it.id.id,
-                        it.name.name
+                        it.id.hotelId,
+                        it.name.hotelName
                     )
                 }
         )
@@ -46,19 +46,17 @@ class HotelReadService (
         val roomDto: List<SearchRoomDetailResponse> = rooms
             .map {
                 SearchRoomDetailResponse (
-                    it.id.value,
-                    it.roomName.value,
+                    it.id.roomId,
+                    it.roomName.roomName,
                     it.roomType.toString(),
-                    it.capacity.value,
-                    it.stock.stock,
+                    it.capacity.capacity,
                     it.basePrice.amount,
-                    it.bedType.toString()
                 )
             }
 
         return SearchHotelDetailResponse (
-            hotelId = hotel.id.id,
-            hotelName = hotel.name.name,
+            hotelId = hotel.id.hotelId,
+            hotelName = hotel.name.hotelName,
             roomResponses = roomDto,
         )
     }

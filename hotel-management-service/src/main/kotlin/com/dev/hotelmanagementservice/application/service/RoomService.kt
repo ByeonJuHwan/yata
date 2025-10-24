@@ -2,17 +2,24 @@ package com.dev.hotelmanagementservice.application.service
 
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterRoomRequest
 import com.dev.hotelmanagementservice.application.port.`in`.room.RegisterRoomUseCase
+import com.dev.hotelmanagementservice.application.port.out.RoomInventoryRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
-import com.dev.hotelmanagementservice.domain.HotelId
+import com.dev.hotelmanagementservice.domain.AvailableCount
 import com.dev.hotelmanagementservice.domain.Room
+import com.dev.hotelmanagementservice.domain.RoomInventory
+import com.dev.hotelmanagementservice.domain.id.HotelId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class RoomService (
     private val roomRepository: RoomRepository,
+    private val roomInventoryRepository: RoomInventoryRepository,
 ) : RegisterRoomUseCase {
 
+    /**
+     * 방에 대한 정보를 입력하면 30일까지 방 기본 정보 생성
+     */
     @Transactional
     override fun registerRoom(request: RegisterRoomRequest) {
         val room = Room.create(
@@ -20,11 +27,18 @@ class RoomService (
             roomName = request.roomName,
             roomType = request.roomType,
             capacity = request.capacity,
-            stock = request.stock,
+            totalRoom = request.totalRoom,
             basePrice = request.basePrice,
-            bedType = request.bedType,
         )
 
         roomRepository.save(room)
+
+        val roomInventories = RoomInventory.createFor30Days(
+            roomId = room.id,
+            price = room.basePrice,
+            availableCount = AvailableCount(room.totalRoom.totalRoom),
+        )
+
+        roomInventoryRepository.saveAll(roomInventories)
     }
 }

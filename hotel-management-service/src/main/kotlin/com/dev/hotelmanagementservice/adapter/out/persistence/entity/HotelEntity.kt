@@ -1,13 +1,12 @@
 package com.dev.hotelmanagementservice.adapter.out.persistence.entity
 
 import com.dev.hotelmanagementservice.domain.Address
-import com.dev.hotelmanagementservice.domain.Description
 import com.dev.hotelmanagementservice.domain.Email
 import com.dev.hotelmanagementservice.domain.Hotel
-import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.HotelName
-import com.dev.hotelmanagementservice.domain.OwnerId
 import com.dev.hotelmanagementservice.domain.PhoneNumber
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.OwnerId
 import com.dev.hotelmanagementservice.domain.status.HotelStatus
 import jakarta.persistence.Column
 import jakarta.persistence.Embedded
@@ -40,7 +39,7 @@ class HotelEntity (
     var phoneNumber: String,
 
     @Column(length = 100)
-    var email: String? = null,
+    var email: String,
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
@@ -52,7 +51,7 @@ class HotelEntity (
             id = HotelId(this.ulid),
             ownerId = OwnerId(this.ownerId),
             name = HotelName(this.name),
-            description = this.description?.let { Description(it) },
+            description = description,
             address = Address(
                 country = this.addressEntity.country,
                 city = this.addressEntity.city,
@@ -60,7 +59,7 @@ class HotelEntity (
                 zipCode = this.addressEntity.zipCode,
             ),
             phoneNumber = PhoneNumber(this.phoneNumber),
-            email = this.email?.let { Email(it) },
+            email = Email(this.email),
             status = this.status,
         )
     }
@@ -68,10 +67,10 @@ class HotelEntity (
     companion object {
         fun from(hotel: Hotel) : HotelEntity {
             return HotelEntity(
-                hotel.id.id,
+                hotel.id.hotelId,
                 hotel.ownerId.ownerId,
-                hotel.name.name,
-                hotel.description?.description,
+                hotel.name.hotelName,
+                hotel.description,
                 AddressEntity(
                     hotel.address.country,
                     hotel.address.city,
@@ -79,7 +78,7 @@ class HotelEntity (
                     hotel.address.zipCode,
                 ),
                 hotel.phoneNumber.phoneNumber,
-                hotel.email?.email,
+                hotel.email.email,
                 hotel.status,
             )
         }

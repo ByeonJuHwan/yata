@@ -1,14 +1,14 @@
 package com.dev.hotelmanagementservice.adapter.out.persistence.entity
 
-import com.dev.hotelmanagementservice.domain.BedType
 import com.dev.hotelmanagementservice.domain.Capacity
-import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.Money
 import com.dev.hotelmanagementservice.domain.Room
-import com.dev.hotelmanagementservice.domain.RoomId
 import com.dev.hotelmanagementservice.domain.RoomName
-import com.dev.hotelmanagementservice.domain.RoomStatus
-import com.dev.hotelmanagementservice.domain.RoomType
+import com.dev.hotelmanagementservice.domain.TotalRoom
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.RoomId
+import com.dev.hotelmanagementservice.domain.status.RoomStatus
+import com.dev.hotelmanagementservice.domain.status.RoomType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -35,23 +35,19 @@ class RoomEntity(
     val roomType: RoomType,
 
     @Column(name = "capacity", nullable = false)
-    val capacity: Int, // 수용 가능 인원
+    val capacity: Int,
 
-    @Column(name = "stock", nullable = false)
-    val stock: Int,
+    @Column(name = "total_rooms", nullable = false)
+    val totalRoom: Int,
 
     @Column(name = "base_price", nullable = false, precision = 19, scale = 2)
     val basePrice: BigDecimal,
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "bed_type", nullable = false, length = 20)
-    val bedType: BedType,
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
     val status: RoomStatus,
 
-) : BaseTimeEntity() {
+    ) : BaseTimeEntity() {
 
     fun toDomain(): Room {
         return Room.reconstitute(
@@ -60,9 +56,8 @@ class RoomEntity(
             roomName = RoomName(this.roomName),
             roomType = this.roomType,
             capacity = Capacity(this.capacity),
-            stock = this.stock,
+            totalRoom = TotalRoom(this.totalRoom),
             basePrice = Money(this.basePrice),
-            bedType = this.bedType,
             status = this.status,
             createdAt = this.createdAt,
             updatedAt = this.updatedAt
@@ -72,14 +67,13 @@ class RoomEntity(
     companion object {
         fun from(room: Room): RoomEntity {
             return RoomEntity(
-                id = room.id.value,
-                hotelId = room.hotelId.id,
-                roomName = room.roomName.value,
+                id = room.id.roomId,
+                hotelId = room.hotelId.hotelId,
+                roomName = room.roomName.roomName,
                 roomType = room.roomType,
-                capacity = room.capacity.value,
-                stock = room.stock.stock,
+                capacity = room.capacity.capacity,
+                totalRoom = room.totalRoom.totalRoom,
                 basePrice = room.basePrice.amount,
-                bedType = room.bedType,
                 status = room.status,
             )
         }

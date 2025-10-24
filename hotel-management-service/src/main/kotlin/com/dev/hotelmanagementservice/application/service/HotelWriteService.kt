@@ -22,7 +22,7 @@ class HotelWriteService (
     override fun registerHotel(userId: String, request: RegisterHotelRequest) {
         userRepository.findById(userId).orElseThrow { throw YataHotelException(ErrorCode.USER_NOT_FOUND) }
 
-        val hotel = Hotel.register(
+        val hotel = Hotel.create(
             userId,
             request.name,
             request.description,

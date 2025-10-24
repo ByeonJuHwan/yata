@@ -13,8 +13,5 @@ interface RoomRepository {
 
     fun findAll(): List<Room>
 
-    fun getRoomStockWithLock(roomId: String): Room?
-
-    fun deductStock(room: Room)
     fun deleteAll()
 }

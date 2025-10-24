@@ -1,5 +1,7 @@
 package com.dev.hotelmanagementservice.domain
 
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.OwnerId
 import com.dev.hotelmanagementservice.domain.status.HotelStatus
 import com.github.f4b6a3.ulid.UlidCreator
 
@@ -7,65 +9,44 @@ class Hotel (
     val id: HotelId,
     val ownerId: OwnerId,
     var name: HotelName,
-    var description: Description?,
+    var description: String?,
     var address: Address,
     var phoneNumber: PhoneNumber,
-    var email: Email?,
+    var email: Email,
     var status: HotelStatus,
 ) {
     companion object {
-        fun register (
+        fun create(
             ownerId: String,
-            name: String,
-            description : String?,
+            hotelName: String,
+            description: String?,
             country: String,
             city: String,
             street: String,
-            zipCode: String?,
+            zipCode: String,
             phoneNumber: String,
-            email: String?
+            email: String,
         ) : Hotel {
             return Hotel(
                 id = HotelId(UlidCreator.getUlid().toString()),
                 ownerId = OwnerId(ownerId),
-                name = HotelName(name),
-                description = description?.let { Description(it) },
-                address = Address(
-                    country = country,
-                    city = city,
-                    street = street,
-                    zipCode = zipCode,
-                ),
+                name = HotelName(hotelName),
+                description = description,
+                address = Address(country, city, street, zipCode),
                 phoneNumber = PhoneNumber(phoneNumber),
-                email = email?.let { Email(it) },
+                email = Email(email),
                 status = HotelStatus.ACTIVE,
             )
         }
     }
 }
 
-data class HotelId(
-    val id: String,
-) {
-    init {
-        require(id.isNotBlank()) { throw IllegalArgumentException("호텔 ID 는 빈 값일수 없습니다") }
-    }
-}
-
-data class OwnerId(
-    val ownerId: String,
-) {
-    init {
-        require(ownerId.isNotBlank()) { throw IllegalArgumentException("소유자 ID 는 빈 값일수 없습니다") }
-    }
-}
-
 data class HotelName(
-    val name: String,
+    val hotelName: String,
 ) {
     init {
-        require(name.isNotBlank()) { throw IllegalArgumentException("호텔 이름은 빈 값일수 없습니다") }
-        require(name.length in 1..200) { throw IllegalArgumentException("호텔 이름은 1~200자 이내로 입력해주세요") }
+        require(hotelName.isNotBlank()) { throw IllegalArgumentException("호텔 이름은 빈 값일수 없습니다") }
+        require(hotelName.length in 1..200) { throw IllegalArgumentException("호텔 이름은 1~200자 이내로 입력해주세요") }
     }
 }
 
