@@ -4,6 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import org.ktor_lecture.reservationservice.domain.Reservation
 
 @Entity
 @Table(name = "reservations")
@@ -21,5 +22,15 @@ class ReservationEntity (
     @Column(name = "hotel_id", nullable = false, length = 26)
     val hotelId: String,
 ) : BaseTimeEntity() {
+    companion object {
+        fun from(reservation: Reservation): ReservationEntity {
+            return ReservationEntity(
+                ulid = reservation.id.id,
+                userId = reservation.userId.userId,
+                roomId = reservation.roomId.roomId,
+                hotelId = reservation.hotelId.hotelId,
+            )
+        }
+    }
 
 }

@@ -1,6 +1,7 @@
 package org.ktor_lecture.reservationservice.adapter.out.persistence
 
 import org.ktor_lecture.reservationservice.adapter.out.persistence.jpa.ReservationJpaRepository
+import org.ktor_lecture.reservationservice.adapter.out.persistence.jpa.entity.ReservationEntity
 import org.ktor_lecture.reservationservice.application.port.out.ReservationRepository
 import org.ktor_lecture.reservationservice.domain.Reservation
 import org.springframework.stereotype.Component
@@ -10,7 +11,8 @@ class ReservationRepositoryAdapter (
     private val reservationJpaRepository: ReservationJpaRepository,
 ) : ReservationRepository {
     override fun save(reservation: Reservation) {
-        TODO("Not yet implemented")
+        val reservationEntity = ReservationEntity.from(reservation)
+        reservationJpaRepository.save(reservationEntity)
     }
 
     override fun findAll(): List<Reservation> {

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody
 )
 interface RoomInventoryFeignClient : RoomInventoryClient {
 
-    @PostMapping("/api/v1/rooms/deduct")
+    @PostMapping("/internal/api/v1/rooms/deduct")
     override fun deductInventory(@RequestBody request: DeductInventoryRequest): RoomDeductResponse
 
 }

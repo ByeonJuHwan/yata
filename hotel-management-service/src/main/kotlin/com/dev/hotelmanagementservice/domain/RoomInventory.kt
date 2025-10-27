@@ -10,8 +10,12 @@ class RoomInventory private constructor(
     val roomId: RoomId,
     val date: LocalDate,
     val price: Money,
-    val availableCount: AvailableCount,
+    var availableCount: AvailableCount,
 ) {
+    fun deduct() {
+        availableCount = availableCount.decrease()
+    }
+
     companion object {
         fun create(
             roomId: RoomId,
@@ -64,6 +68,11 @@ class RoomInventory private constructor(
 
 data class AvailableCount(val availableCount: Int) {
     init {
-        require(availableCount >= 0) { "방 잔여 개수는 양수여야 합니다" }
+        require(availableCount >= 0) { "방 잔여 개수는 음수일 수 없습니다" }
+    }
+
+    fun decrease(): AvailableCount {
+        require(availableCount > 0) { "재고가 부족합니다" }
+        return AvailableCount(availableCount - 1)
     }
 }

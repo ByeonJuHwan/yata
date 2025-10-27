@@ -5,6 +5,7 @@ import org.ktor_lecture.reservationservice.application.port.`in`.CreateReservati
 import org.ktor_lecture.reservationservice.application.port.out.ReservationRepository
 import org.ktor_lecture.reservationservice.application.port.out.RoomInventoryClient
 import org.ktor_lecture.reservationservice.application.port.http.request.DeductInventoryRequest
+import org.ktor_lecture.reservationservice.application.port.http.request.PaymentRequest
 import org.ktor_lecture.reservationservice.application.port.out.PaymentClient
 import org.ktor_lecture.reservationservice.domain.Reservation
 import org.springframework.stereotype.Service
@@ -20,7 +21,7 @@ class ReservationService (
         // 재고감소
         val deductInventoryResponse = roomInventoryClient.deductInventory(DeductInventoryRequest(request.roomId, request.date))
         // 결제
-        val paymentResponse = paymentClient.pay(request.roomId, request.amount)
+        val paymentResponse = paymentClient.pay(PaymentRequest(request.roomId, request.amount))
         // 예약생성
 
         val reservation = Reservation.create(

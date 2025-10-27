@@ -7,6 +7,8 @@ import com.dev.hotelmanagementservice.application.port.`in`.room.DeductRoomInven
 import com.dev.hotelmanagementservice.application.port.`in`.room.RegisterRoomUseCase
 import com.dev.hotelmanagementservice.application.port.out.RoomInventoryRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
+import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode
+import com.dev.hotelmanagementservice.application.service.excpetion.YataHotelException
 import com.dev.hotelmanagementservice.domain.AvailableCount
 import com.dev.hotelmanagementservice.domain.Room
 import com.dev.hotelmanagementservice.domain.RoomInventory
@@ -48,8 +50,10 @@ class RoomService (
     @Transactional
     override fun deductRoomInventory(request: CreateReservationRequest): DeductRoomInventoryResponse {
         // 락 걸어서 가져오기 재고 없으면 예외
-        val roomInventory = roomInventoryRepository.findById(request.roomId).orElseThrow()
+        val roomInventory = roomInventoryRepository.findByIdAndDateWithLock(request.roomId, request.date) ?: throw YataHotelException(ErrorCode.ROOM_NOT_FOUND)
 
+        roomInventory.deduct()
+        roomInventoryRepository.updateAvailableCount(roomInventory)
 
         return DeductRoomInventoryResponse(roomInventory.roomId.roomId)
     }

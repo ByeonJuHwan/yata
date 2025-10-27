@@ -4,6 +4,8 @@ import com.dev.hotelmanagementservice.domain.RoomInventory
 import java.util.Optional
 
 interface RoomInventoryRepository {
-    fun saveAll(roomInventories: kotlin.collections.List<com.dev.hotelmanagementservice.domain.RoomInventory>)
+    fun saveAll(roomInventories: List<RoomInventory>)
     fun findById(roomId: String): Optional<RoomInventory>
+    fun findByIdAndDateWithLock(roomId: String, date: String): RoomInventory?
+    fun updateAvailableCount(roomInventory: RoomInventory)
 }
