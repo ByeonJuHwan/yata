@@ -5,14 +5,15 @@ import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterHotelRequ
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.domain.Address
+import com.dev.hotelmanagementservice.domain.Email
 import com.dev.hotelmanagementservice.domain.Hotel
-import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.HotelName
-import com.dev.hotelmanagementservice.domain.OwnerId
 import com.dev.hotelmanagementservice.domain.PhoneNumber
 import com.dev.hotelmanagementservice.domain.User
 import com.dev.hotelmanagementservice.domain.UserId
 import com.dev.hotelmanagementservice.domain.UserName
+import com.dev.hotelmanagementservice.domain.id.HotelId
+import com.dev.hotelmanagementservice.domain.id.OwnerId
 import com.dev.hotelmanagementservice.domain.status.HotelStatus
 import com.github.f4b6a3.ulid.UlidCreator
 import org.assertj.core.api.Assertions.assertThat
@@ -43,9 +44,9 @@ class HotelControllerTest : IntegrationTestBase() {
              "대한민국",
              "서울 특별시",
              "강남구",
-             null,
+             "123123",
              "01073225858",
-             null
+             "test@test.com"
          )
 
         // when
@@ -71,9 +72,9 @@ class HotelControllerTest : IntegrationTestBase() {
              "대한민국",
              "서울 특별시",
              "강남구",
-             null,
-             "01073225858",
-             null
+            "123123",
+            "01073225858",
+            "test@test.com"
          )
 
         val user = User(
@@ -112,7 +113,7 @@ class HotelControllerTest : IntegrationTestBase() {
                 zipCode = null,
             ),
             phoneNumber = PhoneNumber("01073225858"),
-            email = null,
+            email = Email("test@test.com"),
             status = HotelStatus.ACTIVE,
         )
 
@@ -135,7 +136,7 @@ class HotelControllerTest : IntegrationTestBase() {
             jsonPath("$.hotelInfos") { isArray() }
             jsonPath("$.hotelInfos.length()") { value(1) }
 
-            jsonPath("$.hotelInfos[0].hotelId") { value(hotel.id.id) }
+            jsonPath("$.hotelInfos[0].hotelId") { value(hotel.id.hotelId) }
             jsonPath("$.hotelInfos[0].name") { value("테스트 호텔") }
         }
 

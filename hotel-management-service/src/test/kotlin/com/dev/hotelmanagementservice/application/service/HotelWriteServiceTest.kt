@@ -45,9 +45,9 @@ class HotelWriteServiceTest {
             "대한민국",
             "서울 특별시",
             "강남구",
-            null,
+            "123123",
             "01073225858",
-            null
+            "test@test.com"
         )
 
         val mockUser = mockk<User>(relaxed = true)

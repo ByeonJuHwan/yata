@@ -4,11 +4,11 @@ import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
 import com.dev.hotelmanagementservice.domain.Hotel
-import com.dev.hotelmanagementservice.domain.HotelId
 import com.dev.hotelmanagementservice.domain.HotelName
 import com.dev.hotelmanagementservice.domain.User
 import com.dev.hotelmanagementservice.domain.UserId
 import com.dev.hotelmanagementservice.domain.UserName
+import com.dev.hotelmanagementservice.domain.id.HotelId
 import com.github.f4b6a3.ulid.UlidCreator
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -92,7 +92,7 @@ class HotelReadServiceTest {
         assertThat(result.userId).isEqualTo(userId)
         assertThat(result.username).isEqualTo("테스트유저")
         assertThat(result.hotelInfos).hasSize(2)
-        assertThat(result.hotelInfos[0].hotelId).isEqualTo(hotel1.id.id)
+        assertThat(result.hotelInfos[0].hotelId).isEqualTo(hotel1.id.hotelId)
         assertThat(result.hotelInfos[0].name).isEqualTo("호텔1")
         assertThat(result.hotelInfos[1].name).isEqualTo("호텔2")
 

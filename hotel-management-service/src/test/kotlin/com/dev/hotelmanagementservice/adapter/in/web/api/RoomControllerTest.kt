@@ -3,8 +3,8 @@ package com.dev.hotelmanagementservice.adapter.`in`.web.api
 import com.dev.hotelmanagementservice.IntegrationTestBase
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterRoomRequest
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
-import com.dev.hotelmanagementservice.domain.BedType
-import com.dev.hotelmanagementservice.domain.RoomType
+import com.dev.hotelmanagementservice.domain.status.BedType
+import com.dev.hotelmanagementservice.domain.status.RoomType
 import com.github.f4b6a3.ulid.UlidCreator
 import org.assertj.core.api.Assertions
 import org.springframework.beans.factory.annotation.Autowired
@@ -26,7 +26,7 @@ class RoomControllerTest : IntegrationTestBase() {
             roomName = "test room name",
             roomType = RoomType.STANDARD.toString(),
             capacity = 1,
-            stock = 10,
+            totalRoom = 1,
             basePrice = BigDecimal.valueOf(100),
             bedType = BedType.KING.toString(),
         )

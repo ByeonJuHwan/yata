@@ -5,6 +5,7 @@ import com.dev.hotelmanagementservice.adapter.out.persistence.jpa.RoomInventoryJ
 import com.dev.hotelmanagementservice.application.port.out.RoomInventoryRepository
 import com.dev.hotelmanagementservice.domain.RoomInventory
 import org.springframework.stereotype.Component
+import java.util.Optional
 
 @Component
 class RoomInventoryAdapter (
@@ -14,5 +15,10 @@ class RoomInventoryAdapter (
     override fun saveAll(roomInventories: List<RoomInventory>) {
         val roomInventoryEntities = roomInventories.map { RoomInventoryEntity.from(it) }
         roomInventoryJpaRepository.saveAll(roomInventoryEntities)
+    }
+
+    override fun findById(roomId: String): Optional<RoomInventory> {
+        val roomInventoryEntity = roomInventoryJpaRepository.findById(roomId)
+        return roomInventoryEntity.map { it.toDomain() }
     }
 }
