@@ -4,6 +4,7 @@ import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.CreateReservation
 import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.RegisterRoomRequest
 import com.dev.hotelmanagementservice.adapter.`in`.web.response.DeductRoomInventoryResponse
 import com.dev.hotelmanagementservice.application.port.`in`.room.DeductRoomInventoryUseCase
+import com.dev.hotelmanagementservice.application.port.`in`.room.IncreaseRoomInventoryUseCase
 import com.dev.hotelmanagementservice.application.port.`in`.room.RegisterRoomUseCase
 import com.dev.hotelmanagementservice.application.port.out.RoomInventoryRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
@@ -20,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional
 class RoomService (
     private val roomRepository: RoomRepository,
     private val roomInventoryRepository: RoomInventoryRepository,
-) : RegisterRoomUseCase, DeductRoomInventoryUseCase {
+) : RegisterRoomUseCase, DeductRoomInventoryUseCase, IncreaseRoomInventoryUseCase {
 
     /**
      * 방에 대한 정보를 입력하면 30일까지 방 기본 정보 생성
@@ -55,6 +56,16 @@ class RoomService (
         roomInventory.deduct()
         roomInventoryRepository.updateAvailableCount(roomInventory)
 
-        return DeductRoomInventoryResponse(roomInventory.roomId.roomId)
+        return DeductRoomInventoryResponse(roomInventory.id.roomInventoryId)
+    }
+
+    @Transactional
+    override fun increaseRoomInventory(roomInventoryId: String) {
+        val roomInventory = roomInventoryRepository
+            .findById(roomInventoryId)
+            .orElseThrow { throw YataHotelException(ErrorCode.ROOM_NOT_FOUND)  }
+
+        roomInventory.increase()
+        roomInventoryRepository.updateAvailableCount(roomInventory)
     }
 }

@@ -16,6 +16,10 @@ class RoomInventory private constructor(
         availableCount = availableCount.decrease()
     }
 
+    fun increase() {
+        availableCount = availableCount.increase()
+    }
+
     companion object {
         fun create(
             roomId: RoomId,
@@ -74,5 +78,9 @@ data class AvailableCount(val availableCount: Int) {
     fun decrease(): AvailableCount {
         require(availableCount > 0) { "재고가 부족합니다" }
         return AvailableCount(availableCount - 1)
+    }
+
+    fun increase(): AvailableCount {
+        return AvailableCount(availableCount + 1)
     }
 }
