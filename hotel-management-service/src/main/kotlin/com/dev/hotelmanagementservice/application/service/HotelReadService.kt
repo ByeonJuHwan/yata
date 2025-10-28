@@ -9,8 +9,8 @@ import com.dev.hotelmanagementservice.application.port.`in`.hotel.SearchMyHotels
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
-import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode
-import com.dev.hotelmanagementservice.application.service.excpetion.YataHotelException
+import com.dev.hotelmanagementservice.domain.exception.ErrorCode
+import com.dev.hotelmanagementservice.domain.exception.YataHotelException
 import com.dev.hotelmanagementservice.domain.Room
 import org.springframework.stereotype.Service
 

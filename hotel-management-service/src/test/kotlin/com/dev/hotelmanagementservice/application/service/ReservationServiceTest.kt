@@ -1,24 +1,12 @@
 package com.dev.hotelmanagementservice.application.service
 
-import com.dev.hotelmanagementservice.adapter.`in`.web.reqeust.CreateReservationRequest
 import com.dev.hotelmanagementservice.application.port.out.ReservationRepository
 import com.dev.hotelmanagementservice.application.port.out.RoomRepository
-import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode
-import com.dev.hotelmanagementservice.application.service.excpetion.YataHotelException
-import com.dev.hotelmanagementservice.domain.*
 import com.github.f4b6a3.ulid.UlidCreator
-import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import io.mockk.just
-import io.mockk.runs
-import io.mockk.verify
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
-import java.math.BigDecimal
-import kotlin.test.Test
 
 @ExtendWith(MockKExtension::class)
 class ReservationServiceTest {

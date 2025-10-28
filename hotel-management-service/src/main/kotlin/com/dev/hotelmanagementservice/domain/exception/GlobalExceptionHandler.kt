@@ -1,4 +1,4 @@
-package com.dev.hotelmanagementservice.application.service.excpetion
+package com.dev.hotelmanagementservice.domain.exception
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

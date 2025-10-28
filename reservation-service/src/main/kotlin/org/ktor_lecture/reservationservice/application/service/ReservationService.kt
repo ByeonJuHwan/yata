@@ -10,9 +10,10 @@ import org.ktor_lecture.reservationservice.application.port.http.request.Payment
 import org.ktor_lecture.reservationservice.application.port.http.request.RefundPaymentRequest
 import org.ktor_lecture.reservationservice.application.port.out.PaymentClient
 import org.ktor_lecture.reservationservice.domain.Reservation
+import org.ktor_lecture.reservationservice.domain.exception.ErrorCode
+import org.ktor_lecture.reservationservice.domain.exception.YataHotelException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import kotlin.math.log
 
 @Service
 class ReservationService (
@@ -58,7 +59,7 @@ class ReservationService (
                 roomInventoryClient.increaseInventory(IncreaseInventoryRequest(roomInventoryId))
             }
 
-            throw e // TODO 커스텀 예외로 변경
+            throw YataHotelException(ErrorCode.RESERVATION_FAILED)
         }
     }
 }

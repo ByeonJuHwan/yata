@@ -5,8 +5,8 @@ import com.dev.hotelmanagementservice.application.port.`in`.hotel.RegisterHotelU
 import com.dev.hotelmanagementservice.application.port.out.EventPublisher
 import com.dev.hotelmanagementservice.application.port.out.HotelRepository
 import com.dev.hotelmanagementservice.application.port.out.UserRepository
-import com.dev.hotelmanagementservice.application.service.excpetion.ErrorCode
-import com.dev.hotelmanagementservice.application.service.excpetion.YataHotelException
+import com.dev.hotelmanagementservice.domain.exception.ErrorCode
+import com.dev.hotelmanagementservice.domain.exception.YataHotelException
 import com.dev.hotelmanagementservice.domain.Hotel
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
